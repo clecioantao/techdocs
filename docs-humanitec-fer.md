@@ -609,3 +609,156 @@ Garantir que os pré-requisitos necessários para iniciar o **MVP (Minimum Viabl
 ---
 
 ---
+
+### **Documentação Técnica: Integração do Backstage com o Humanitec**
+
+---
+
+### **Objetivo**
+
+Definir o processo de integração do **Backstage** com a plataforma **Humanitec**, possibilitando uma experiência centralizada para desenvolvedores e equipes de plataforma ao gerenciar aplicações, infraestrutura e fluxos de orquestração.
+
+---
+
+### **Visão Geral da Integração**
+
+O **Backstage** é uma plataforma de developer portal que centraliza ferramentas, serviços e documentação para equipes. A integração com a **Humanitec** possibilita:
+
+1. **Gerenciamento de Aplicações**: Sincronizar aplicações gerenciadas pelo **Humanitec** com o catálogo do Backstage.
+2. **Provisionamento de Infraestrutura**: Executar workflows do **Humanitec** diretamente no Backstage para provisionamento e gerenciamento de infraestrutura.
+3. **Orquestração Declarativa**: Automatizar deploys de infraestrutura e aplicações utilizando drivers e manifests suportados pelo **Humanitec**.
+4. **Observabilidade Centralizada**: Monitorar estados de deploy, erros e logs de workflows no Backstage.
+
+---
+
+### **Componentes da Integração**
+
+1. **Backstage Plugins**
+    - O plugin **Humanitec** será configurado no **Backstage** para interação com a API da plataforma.
+    - O plugin permite:
+        - Gerenciamento de drivers e manifests do Humanitec.
+        - Exibição de logs e status de deploys.
+        - Execução de workflows do Humanitec.
+2. **Humanitec API**
+    - O **Humanitec API** fornece endpoints REST para integração com o Backstage.
+    - Autenticação via **API Keys** ou **OAuth** será configurada para comunicação segura.
+3. **Configuração GitOps**
+    - Sincronização com repositórios de configuração para atualizar o estado do **GitOps** no Backstage.
+4. **Drivers e Manifests**
+    - Uso de drivers Terraform e Kubernetes do Humanitec para provisionamento de infraestrutura e deploy de workloads.
+    - Os manifests suportam templates personalizáveis para integrar com Helm, ArgoCD e pipelines existentes.
+
+---
+
+### **Pré-Requisitos para Integração**
+
+1. **Backstage**
+    - Instância do Backstage operacional na infraestrutura.
+    - Catálogo configurado com serviços e aplicações existentes.
+2. **Humanitec**
+    - Organização criada na plataforma Humanitec.
+    - API Key gerada para autenticação.
+    - Configuração de drivers necessários (Terraform, Kubernetes, etc.).
+3. **Infraestrutura**
+    - Clusters Kubernetes configurados e integrados ao Humanitec.
+    - Regras de firewall abertas para os endpoints da Humanitec:
+        - `drivers.humanitec.io`
+        - `agent-01.humanitec.io`
+4. **Credenciais e Permissões**
+    - Configurar permissões no Backstage para acesso aos recursos do Humanitec.
+    - Configurar o Backstage para acesso ao repositório de configuração do GitOps.
+
+---
+
+### **Passos para Integração**
+
+### **1. Configuração do Backstage Plugin**
+
+1. Instalar o plugin oficial do **Humanitec** no Backstage.
+    
+    ```bash
+    npm install @backstage/plugin-humanitec
+    
+    ```
+    
+2. Configurar o arquivo `app-config.yaml` do Backstage para adicionar o plugin:
+    
+    ```yaml
+    humanitec:
+      baseUrl: https://api.humanitec.io
+      apiKey: YOUR_HUMANITEC_API_KEY
+    
+    ```
+    
+3. Adicionar o plugin à interface do Backstage:
+    
+    ```tsx
+    import { HumanitecPage } from '@backstage/plugin-humanitec';
+    const routes = (
+      <Route path="/humanitec" element={<HumanitecPage />} />
+    );
+    
+    ```
+    
+
+---
+
+### **2. Configuração da API Humanitec**
+
+1. **Gerar API Key**:
+    - Acesse o painel do Humanitec e crie uma API Key com permissões para leitura/escrita.
+2. **Drivers Configurados**:
+    - Configure os drivers necessários no painel da Humanitec:
+        - **Terraform**: Integração com repositórios Git ou registros privados no Terraform Cloud.
+        - **Kubernetes**: Drivers configurados para clusters AKS, EKS ou GKE.
+
+---
+
+### **3. Sincronização de Repositórios GitOps**
+
+1. Configurar repositórios de configuração no Backstage:
+    - Sincronizar repositórios utilizados pelo **GitOps (ArgoCD)** para gerenciar aplicações e infraestrutura.
+2. Configurar integração entre **SCORE** e **Helm Values** no repositório Git:
+    - Garantir que as mudanças realizadas pelo Humanitec respeitem os templates e values existentes.
+
+---
+
+### **4. Execução de Workflows no Backstage**
+
+1. Configurar ações personalizadas no Backstage para acionar workflows no Humanitec:
+    - **Exemplo**: Deploy de um módulo Terraform ou um workload Kubernetes.
+2. Adicionar botões de execução no painel do Backstage para provisionamento e deploy.
+
+---
+
+### **5. Observabilidade e Monitoramento**
+
+1. Configurar o plugin Humanitec para exibir logs e status de workflows:
+    - Logs de deploys, erros e recursos provisionados aparecerão diretamente no painel do Backstage.
+2. Garantir a integração com ferramentas de observabilidade (e.g., Prometheus, Grafana) para monitorar clusters e workloads.
+
+---
+
+### **Pontos de Validação**
+
+1. **Sincronização com o Catálogo**:
+    - Aplicações gerenciadas pelo Humanitec devem aparecer no catálogo do Backstage.
+2. **Execução de Workflows**:
+    - Garantir que workflows do Humanitec podem ser acionados diretamente do Backstage.
+3. **Compatibilidade com GitOps**:
+    - As alterações realizadas pelo Humanitec devem respeitar templates Helm e pipelines ArgoCD existentes.
+4. **Logs e Monitoramento**:
+    - Logs e status de deploys devem ser exibidos em tempo real no Backstage.
+
+---
+
+### **Próximos Passos**
+
+1. **Testes de Integração**:
+    - Validar todos os fluxos configurados em ambiente de teste.
+2. **Documentação Interna**:
+    - Criar guias para desenvolvedores e equipes de plataforma utilizarem a integração.
+3. **Treinamento de Equipes**:
+    - Realizar workshops para explicar o uso do Backstage com o Humanitec.
+4. **Acompanhamento e Ajustes**:
+    - Monitorar o uso e realizar ajustes conforme feedback das equipes.
