@@ -762,3 +762,156 @@ O **Backstage** é uma plataforma de developer portal que centraliza ferramentas
     - Realizar workshops para explicar o uso do Backstage com o Humanitec.
 4. **Acompanhamento e Ajustes**:
     - Monitorar o uso e realizar ajustes conforme feedback das equipes.
+    - 
+---
+### **Deployment da Infraestrutura**
+
+---
+
+### **Área:**
+
+**Intelligence Management - Automation & Orchestration**
+
+---
+
+### **Decisão de Arquitetura:**
+
+Definir a forma como o **Humanitec** realizará ou acionará o deploy de uma infraestrutura.
+
+---
+
+### **Descrição do Problema:**
+
+O **Terraform Cloud** foi identificado como a ferramenta responsável por executar os comandos `terraform plan` e `terraform apply`, tornando-se a origem principal dos deployments. Para integrar esse fluxo, o **Humanitec** precisa interagir ou disparar o provisionamento remoto no Terraform Cloud.
+
+---
+
+### **Premissas:**
+
+1. **Integração com Terraform Cloud**:
+    - O manifesto do driver Terraform no Humanitec deve permitir integração com o Terraform Cloud.
+    - A integração pode ser feita por meio de **entrypoints** ou **variáveis** configuradas via runner customizado.
+2. **Proximidade Operacional**:
+    - Os **runners** (agent pools) do Terraform Cloud e o **Humanitec Operator** **DEVEM** estar no mesmo cluster **AKS** para garantir a comunicação eficiente.
+
+---
+
+### **Alternativas:**
+
+1. **Integração via Entrypoints**:
+    - Configurar o **Humanitec** para acionar o Terraform Cloud diretamente no manifesto, utilizando **entrypoints** que executem `terraform login`.
+    - Dessa forma, o Terraform Cloud gerencia automaticamente as credenciais e identifica o contexto de deploy remoto.
+2. **(Alternativa em Aberto)**:
+    - **[Preencher com proposta adicional ou variante de integração]**
+3. **(Alternativa em Aberto)**:
+    - **[Preencher com proposta adicional ou outra abordagem técnica viável]**
+
+---
+
+### **Decisão:**
+
+A integração entre o **Humanitec** e o **Terraform Cloud** será realizada utilizando **entrypoints** no manifesto do driver Terraform do Humanitec, configurando comandos como `terraform login`. Isso permitirá que o Terraform Cloud gerencie as credenciais automaticamente e execute o provisionamento remoto de forma segura e eficiente.
+
+---
+
+### **Justificativas:**
+
+1. **Simplicidade e Eficiência**:
+    - O uso de **entrypoints** permite uma configuração mais direta e padronizada no manifesto do Humanitec.
+    - A abordagem reduz a complexidade, uma vez que o **Terraform Cloud** resolve automaticamente as credenciais e gerencia os deployments remotamente.
+2. **Flexibilidade na Integração**:
+    - A integração via entrypoints oferece flexibilidade para customizar a comunicação com o Terraform Cloud, garantindo compatibilidade com diferentes cenários de infraestrutura.
+3. **Manutenção Simplificada**:
+    - Evitar a necessidade de criar runners customizados ou pipelines complexos reduz custos de manutenção e pontos de falha na automação.
+4. **Conformidade e Escalabilidade**:
+    - A obrigatoriedade de manter os runners (Terraform Cloud) e o Humanitec Operator no mesmo cluster AKS assegura latência reduzida e conformidade operacional, além de facilitar a escalabilidade do ambiente.
+
+---
+
+### **Implicações:**
+
+1. **Dependência do Cluster AKS**:
+    - Como os runners e o Humanitec Operator devem estar no mesmo cluster AKS, a disponibilidade do cluster se torna crítica para a execução do pipeline.
+2. **Configuração Inicial**:
+    - Será necessário configurar corretamente os entrypoints no manifesto do Humanitec, além de garantir que as credenciais estejam sincronizadas no Terraform Cloud.
+3. **Monitoramento e Logs**:
+    - O pipeline exigirá uma camada robusta de monitoramento para rastrear falhas na execução do `terraform plan` e `terraform apply`, bem como a interação entre o Humanitec e o Terraform Cloud.
+4. **Limitação em Casos Não Suportados**:
+    - Qualquer limitação futura nos entrypoints ou mudanças na API do Terraform Cloud podem impactar o fluxo de trabalho e exigir adaptações.
+
+---
+
+### **Notas Adicionais:**
+
+Com essa abordagem, a organização consegue um modelo simples, escalável e seguro para gerenciar deploys de infraestrutura. A validação do ambiente no cluster AKS será essencial para mitigar os riscos relacionados à dependência operacional. Caso necessário, uma alternativa deverá ser revisada para cenários de falha no cluster AKS ou no Terraform Cloud.
+
+---
+
+A decisão de adotar o Score em uma grande corporação financeira requer uma análise cuidadosa devido às particularidades do setor e às características do produto emergente. Vamos considerar os aspectos principais para ajudar na sua decisão.
+
+1. Benefícios Potenciais do Score
+Abstração e Simplificação:
+
+O Score elimina a necessidade de gerenciar manifestos Kubernetes específicos, oferecendo uma interface agnóstica para diferentes ambientes.
+Isso reduz a complexidade operacional e facilita a padronização em múltiplos times.
+Velocidade de Adaptação:
+
+Como o Score abstrai detalhes de infraestrutura, equipes podem se concentrar no desenvolvimento e no deploy, acelerando o time-to-market.
+Agnosticismo de Plataforma:
+
+Permite criar configurações reutilizáveis entre diferentes provedores de cloud (AWS, GCP, Azure) ou ambientes on-premises, alinhando-se a estratégias multicloud e híbridas.
+Cultura DevOps:
+
+Promove boas práticas de colaboração entre desenvolvedores e operações, ajudando a implementar uma mentalidade de infraestrutura como código (IaC).
+2. Riscos Envolvidos
+Produto Emergente:
+
+Risco: O Score ainda está em seus estágios iniciais e pode carecer de suporte robusto, comunidade ativa e compatibilidade com ferramentas de mercado.
+Impacto: Se houver bugs críticos ou funcionalidades limitadas, sua organização pode enfrentar gargalos.
+Integração com o Ecossistema Atual:
+
+Risco: Ferramentas existentes como Terraform, ArgoCD e Helm são amplamente adotadas e maduras. Substituí-las ou integrá-las ao Score pode ser desafiador.
+Impacto: A curva de aprendizado e customizações pode gerar atrasos e custos adicionais.
+Conformidade Regulatória:
+
+Risco: O setor financeiro exige conformidade rigorosa (LGPD, GDPR, PCI DSS). Um produto emergente pode não oferecer suporte nativo ou auditabilidade adequada.
+Impacto: Violações podem levar a multas e danos à reputação.
+Suporte e Comunidade:
+
+Risco: A ausência de uma comunidade madura ou suporte comercial robusto pode deixar sua equipe sem ajuda em momentos críticos.
+Impacto: Soluções alternativas ou personalizações podem aumentar os custos.
+3. Avaliação do Custo-Benefício
+Quando Pode Valer a Pena?
+Projetos Isolados ou Experimentais:
+Adotar o Score em projetos-piloto ou para aplicações não críticas reduz o impacto de falhas e oferece uma base para avaliação do produto.
+Equipes Pequenas com Foco em Velocidade:
+Se sua organização prioriza agilidade em detrimento de maturidade no curto prazo, o Score pode simplificar o processo.
+Multicloud ou Híbrido:
+Se o ambiente já é distribuído entre clouds ou inclui on-premises, o Score pode facilitar a padronização.
+Quando Evitar?
+Sistemas Críticos:
+Para aplicações de missão crítica (como gateways de pagamento ou plataformas de trading), o Score pode introduzir riscos desnecessários.
+Grandes Ambientes Consolidados:
+Se sua infraestrutura já está bem estabelecida com ferramentas maduras (Terraform, Helm, ArgoCD), a adoção pode ser mais disruptiva do que benéfica.
+4. Estratégia para Mitigar Riscos
+Começar com um Piloto:
+
+Escolha um projeto pequeno e não crítico para validar o Score em um ambiente controlado.
+Documente os aprendizados e ajustes necessários.
+Engajamento com a Comunidade/Time do Produto:
+
+Participe de discussões no GitHub ou canais oficiais para garantir que o produto atende às necessidades específicas.
+Contribua com feedback e relatórios de bugs.
+Plano de Saída:
+
+Desenvolva uma estratégia para reverter para ferramentas tradicionais caso o Score não atenda às expectativas.
+Conformidade e Auditoria:
+
+Certifique-se de que o Score pode ser configurado para atender aos requisitos regulatórios e de segurança antes de expandir seu uso.
+5. Conclusão
+Adotar o Score em uma grande corporação financeira pode ser uma boa aposta para projetos inovadores ou para simplificar ambientes multicloud/híbridos. No entanto, é crucial considerar o impacto potencial nos sistemas críticos e o custo de integração com ferramentas existentes.
+
+A recomendação é:
+
+Comece com um projeto piloto bem delimitado.
+Avalie métricas como eficiência operacional, compatibilidade e maturidade do suporte antes de expandir o uso para o ambiente produtivo.
