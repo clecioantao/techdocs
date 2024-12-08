@@ -317,3 +317,19 @@ Este tutorial cobre a configuração de um ambiente Kubernetes usando Kind, a in
     kubectl get resourcegroups -n crossplane-system
     
     ```
+---
+
+## Diagrama draft
+
+![iac-crossplane drawio](https://github.com/user-attachments/assets/34a9b8d6-1721-442d-a59d-f4a6e711ec32)
+
+---
+
+## Testes Lab
+
+![image](https://github.com/user-attachments/assets/d746b93a-d5fd-4027-b4c9-f6fd389a8829)
+
+![image](https://github.com/user-attachments/assets/7ed02e87-30ef-4e7f-aab9-152a714f0430)
+
+![image](https://github.com/user-attachments/assets/8dc8738a-f5ba-47d5-9b64-d11b6267ddcc)
+
