@@ -4,6 +4,40 @@
 
 ---
 
+- **Hello, my name is Clécio, and I am from the Automation and Orchestration team at Bradesco. Nice to meet you!**
+    
+    Olá, meu nome é Clécio, e sou do time de Automação e Orquestração do Bradesco. Prazer em conhecê-lo!
+    
+- **I apologize for my poor English!**
+    
+    Peço desculpas pelo meu mau inglês!
+    
+- **Do you have official representatives in Brazil?**
+    
+    Vocês têm representantes oficiais no Brasil.
+    
+- **Do you know Lucas Guimarães, from the company Sunny System?**
+    
+    **Você conhece Lucas Guimarães, da empresa Sunny System?**
+    
+- **How should we prepare our current Helm charts, Terraform files, or pipelines for the integration?**
+    
+    Como devemos preparar nossos Helm charts, arquivos Terraform ou pipelines para a integração?
+    
+- **Will there be any specific changes or adjustments required in our current deployment artifacts?**
+    
+    Haverá mudanças ou ajustes específicos necessários em nossos artefatos de implantação atuais?
+    
+- **We are implementing HCP Terraform. How would these two platforms coexist**
+    
+    Estamos implementando o HCP Terraform. Como essas duas plataformas coexistiriam?
+    
+- **We had some difficulties contacting you to carry out the POC. What would be our SLA for support if we sign a contract?**
+    
+    Nos tivemos algumas dificuldades para contactar voces para a realização de POC. Qual seria nosso SLA para atendimento caso venhamos a fechar contrato?
+
+---
+
 ### **Objetivo da Reunião**
 
 Discutir o plano do projeto MVP Tech Track da Humanitec, alinhando expectativas, objetivos e cronogramas para garantir uma implementação bem-sucedida. Também será abordada a coexistência com outras ferramentas como o HCP Terraform.
