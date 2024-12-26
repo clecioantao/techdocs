@@ -915,3 +915,48 @@ A recomendação é:
 
 Comece com um projeto piloto bem delimitado.
 Avalie métricas como eficiência operacional, compatibilidade e maturidade do suporte antes de expandir o uso para o ambiente produtivo.
+
+---
+
+### **005 - Integração com o IDP:**
+
+Área
+Intelligence Management - Automation & Orchestration
+DevEx
+
+Decisão de Arquitetura
+Integração com o IDP
+
+Descrição do Problema
+Atualmente o IDP atua realizando um commit no repositório IaC e a esteira é responsável por processá-lo.
+Precisamos definir a arquitetura como o IDP atuará com a Humanitec ou isso ficará em outra camada.
+A Humanitec espera um apply no score e/ou no repo de state target para triggerar o Operator que aplica a infraestrutura. Sendo assim, o IDP precisará interagir diretamente com o score.
+
+Premissas
+
+IDP irá interagir com o score do Humanitec para incluir e/ou remover os recursos de acordo com o front-end.
+IDP irá commitar o repositório para a esteira.
+O IDP irá consumir um repo de scaffold para fazer o placeholder das informações.
+Alternativas
+
+GitHub Actions faz a interação com a Humanitec após o IDP commitar no repositório fazendo o score/manifesto para incluir ou editar recursos.
+IDP faz a chamada direta via API na Humanitec para trigger uma inclusão ou alteração de recursos.
+
+Decisão
+A decisão tomada foi utilizar a Alternativa 2, onde o IDP fará a chamada direta via API na Humanitec para incluir, alterar ou remover recursos, sem depender de intermediários como o GitHub Actions para processar commits no repositório. Esta abordagem simplifica a arquitetura e elimina possíveis pontos de falha, garantindo maior controle direto sobre a interação com o score.
+
+Justificativas
+Simplicidade Operacional: A chamada direta à API da Humanitec elimina a necessidade de configurar e manter esteiras intermediárias, reduzindo a complexidade da solução.
+Agilidade: A integração direta com a Humanitec permite que as mudanças sejam aplicadas em tempo real, reduzindo o tempo para propagação de alterações nos recursos.
+Menor Dependência: Não depender do GitHub Actions para mediar a interação evita problemas com integrações adicionais e aumenta a autonomia do IDP.
+Flexibilidade: A solução oferece maior flexibilidade para personalizar a interação entre o IDP e a Humanitec, sem limitações impostas por ferramentas de terceiros.
+Escalabilidade: A abordagem direta via API se adapta melhor a um crescimento futuro, suportando mais usuários e operações simultâneas.
+
+Implicações
+Responsabilidade no IDP: O IDP assumirá maior responsabilidade em gerenciar diretamente a interação com a API da Humanitec, exigindo maior robustez no código e monitoramento adequado.
+Segurança: Será necessário implementar autenticação segura e permissões adequadas ao usar a API da Humanitec para evitar acessos não autorizados.
+Monitoramento e Logs: Deve ser configurado um sistema de monitoramento e logging para rastrear todas as chamadas à API e identificar possíveis falhas ou problemas de desempenho.
+Treinamento da Equipe: A equipe de desenvolvimento e operação precisará se familiarizar com a API da Humanitec para lidar com a nova solução e suas particularidades.
+Customização do Score: O IDP deverá garantir que as alterações enviadas à API respeitem o formato esperado pelo score da Humanitec, evitando inconsistências ou erros.
+
+
