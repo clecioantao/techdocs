@@ -1,0 +1,25 @@
+Pro Memoria — Reunião sobre Portal de Automações de Redes
+Data: [Inserir data]
+Participantes: Alexandre, Clésio, Yuri, Edwin, Bruno, Wellington, demais membros da equipe
+A reunião iniciou discutindo a possível entrada do Yuri, mas ficou decidido aguardar e manter a sequência atual. Edwin apresentou o Clésio e destacou que o Bruno lideraria a apresentação das automações já implementadas e do backlog existente.
+Bruno explicou que as automações da equipe foram organizadas em grupos: automações de Discovery (levantamento de informações dos equipamentos, como PS, matrizes, atualizações, entre outros), automações de Hardware (padronização de configuração e segurança), automações de Self-Healing (correção automática de problemas) e automações de Self-Service (provisão de novos recursos de forma automática).
+O foco inicial foi Discovery, por conta da necessidade de estruturar a CMDB e consolidar informações de inventário e configuração dos equipamentos. Posteriormente, foi implementado o Harden de configurações, visando segurança e compliance. Atualmente, a equipe administra automações para mais de 22 vendors diferentes, o que demanda alto esforço de padronização, considerando versões diversas de equipamentos.
+As automações utilizam repositórios no Bitbucket, integrados a um portal interno que funciona como catálogo para execução das tarefas. Esse portal é utilizado apenas pela Engenharia de Redes e não depende ainda de ServiceNow. O objetivo futuro é migrar tudo para o ServiceNow, padronizando o processo.
+Bruno demonstrou que diariamente são coletadas informações de aproximadamente 3000 equipamentos no datacenter, e no total, cerca de 16000 equipamentos são validados. As informações coletadas incluem compliance de configuração, End of Support, End of Sale, e atualizações. Dashboards no Grafana foram montados para visualização dos resultados, separados por vendor e tipo de equipamento.
+O backlog atual conta com cerca de 300 itens de automação, abrangendo atividades como Discovery de hardware e configuração, automação de criação de VPN site-to-site, automações específicas para balanceadores (F5, Citrix), e diversas outras. Esse backlog é dinâmico e está em crescimento.
+As automações atuais são implementadas majoritariamente pela equipe interna (Bruno e demais), mas também contam com apoio de terceiros para algumas atividades específicas. O portal atual foi criado porque, na época, não foi possível integrar diretamente com o ServiceNow. A expectativa é que, com a evolução das ferramentas, a integração possa ser feita futuramente.
+Os processos de automação são disparados manualmente hoje, de forma controlada. Por exemplo, ao configurar SNMP ou TACACS, o operador seleciona o device no portal e a automação realiza toda a configuração e registros necessários, incluindo backup de configurações e atualização de inventários.
+O objetivo atual é validar se as automações estão conforme os padrões solicitados para a organização, migrar para o ServiceNow (ou ferramenta oficial definida) e seguir consumindo o backlog conforme a prioridade das demandas.
+Alexandre ressaltou que o primeiro passo é garantir a adequação às plataformas corretas e políticas definidas. Clésio apoiará na documentação inicial dos processos.
+Bruno ficou responsável por liberar acesso ao portal para Alexandre e Clésio, facilitando o acompanhamento e evolução do trabalho. A equipe fechou o alinhamento e informou que será fornecido um feedback posterior ao Yuri.
+Encerrada a reunião, ficou claro que já existem muitas automações disponíveis para uso imediato, e o próximo passo será evoluir, formalizar padrões e consumir o backlog conforme a estruturação avançar.
+
+Pro Memoria — Reunião de Apresentação das Automações de Redes
+Data: [Inserir data]
+Participantes: Alexandre, Clésio, Yuri, Edwin, Bruno, Wellington
+A reunião apresentou o trabalho realizado pela equipe de Engenharia de Redes em automações divididas nos grupos: Discovery, Hardware, Self-Healing e Self-Service.
+As automações coletam informações de cerca de 16000 equipamentos, realizam compliance de configuração, e suportam atividades diárias de operação, com dashboards em Grafana. Há integração parcial com o Bitbucket e um portal interno para execução das automações.
+O backlog atual possui aproximadamente 300 itens, com foco em Discovery, ajustes de configuração e provisionamento de infraestrutura. A automação é feita tanto internamente quanto com apoio de terceiros.
+Atualmente, as execuções são controladas manualmente e o objetivo futuro é migrar as automações para o ServiceNow ou ferramenta definida, seguindo os padrões corporativos.
+Bruno ficou responsável por liberar o acesso ao portal para Alexandre e Clésio, que apoiarão a documentação e evolução dos processos.
+Foi alinhado que o primeiro foco será a conformidade das automações às políticas e, em seguida, o consumo do backlog.
