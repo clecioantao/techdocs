@@ -1,0 +1,90 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="fluxograma" name="Fluxograma Migracao">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Etapas principais -->
+        <mxCell id="A" value="1 - Discovery Tower" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#AED6F1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="160" height="50" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="B" value="2 - Estrutura AAP/Git" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#AED6F1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="120" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="C" value="3 - Mapeamento de Jobs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#AED6F1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="200" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Subetapas refatoração -->
+        <mxCell id="D1" value="4.1 - Cópia do código" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9E79F;" vertex="1" parent="1">
+          <mxGeometry x="80" y="280" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="D2" value="4.2 - Análise/refatoração" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9E79F;" vertex="1" parent="1">
+          <mxGeometry x="80" y="360" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="D3" value="4.3 - Execution-environment" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9E79F;" vertex="1" parent="1">
+          <mxGeometry x="80" y="440" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="D4" value="4.4 - Criação job_template" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9E79F;" vertex="1" parent="1">
+          <mxGeometry x="80" y="520" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="D5" value="4.5 - Teste de execução" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9E79F;" vertex="1" parent="1">
+          <mxGeometry x="80" y="600" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="D6" value="4.7 - Ajustes finais" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9E79F;" vertex="1" parent="1">
+          <mxGeometry x="80" y="680" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Entrega -->
+        <mxCell id="E" value="5 - Entrega para homologação" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ABEBC6;" vertex="1" parent="1">
+          <mxGeometry x="80" y="760" width="220" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="F" value="Fim" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#82E0AA;" vertex="1" parent="1">
+          <mxGeometry x="80" y="840" width="100" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Conexões -->
+        <mxCell id="e1" edge="1" parent="1" source="A" target="B">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="B" target="C">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="C" target="D1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="D1" target="D2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="D2" target="D3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="D3" target="D4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="D4" target="D5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="D5" target="D6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="D6" target="E">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="E" target="F">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
